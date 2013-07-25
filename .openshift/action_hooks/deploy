@@ -3,3 +3,21 @@
 # build hook has been run but before the application has been started back
 # up again.  This script gets executed directly, so it could be python, php,
 # ruby, etc.
+
+set -e
+
+function substitute_vars()
+{
+	sed -e "s|\$OPENSHIFT_HOMEDIR|$OPENSHIFT_HOMEDIR|" \
+		-e "s|\$OPENSHIFT_PYTHON_LOG_DIR|$OPENSHIFT_PYTHON_LOG_DIR|" \
+		-e "s|\$OPENSHIFT_APP_DNS|$OPENSHIFT_APP_DNS|" \
+		-e "s|\$OPENSHIFT_DATA_DIR|$OPENSHIFT_DATA_DIR|" \
+		-e "s|\$OPENSHIFT_INTERNAL_IP|$OPENSHIFT_INTERNAL_IP|" \
+		-e "s|\$OPENSHIFT_INTERNAL_PORT|$OPENSHIFT_INTERNAL_PORT|" \
+		-e "s|\$OPENSHIFT_PYTHON_LOG_DIR|$OPENSHIFT_PYTHON_LOG_DIR|"
+}
+
+[ -d $OPENSHIFT_DATA_DIR/config ] || mkdir -p $OPENSHIFT_DATA_DIR/config
+
+echo Generating config: $OPENSHIFT_DATA_DIR/config/nginx.conf
+substitute_vars < $OPENSHIFT_REPO_DIR/config/nginx.conf > $OPENSHIFT_DATA_DIR/config/nginx.conf
