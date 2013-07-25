@@ -17,6 +17,7 @@ function substitute_vars()
 		-e "s|\$OPENSHIFT_PYTHON_LOG_DIR|$OPENSHIFT_PYTHON_LOG_DIR|"
 }
 
+[ -d $OPENSHIFT_DATA_DIR/nginx/tmp ] || mkdir -p $OPENSHIFT_DATA_DIR/nginx/tmp
 [ -d $OPENSHIFT_DATA_DIR/config ] || mkdir -p $OPENSHIFT_DATA_DIR/config
 
 echo Generating config: $OPENSHIFT_DATA_DIR/config/nginx.conf
