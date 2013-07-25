@@ -14,4 +14,4 @@
 # throughout the system.
 
 # for now we use system's nginx intallation
-/usr/sbin/nginx -c $OPENSHIFT_DATA_DIR/config/nginx.conf
+/usr/sbin/nginx -c $OPENSHIFT_DATA_DIR/config/nginx.conf >> $OPENSHIFT_PYTHON_LOG_DIR/nginx_error.log
