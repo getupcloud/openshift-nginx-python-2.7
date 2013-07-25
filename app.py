@@ -13,12 +13,12 @@ except IOError:
    pass
 
 
-def run_gevent_server(app, ip, port=8080):
+def run_gevent_server(app, ip, port=8181):
    from gevent.pywsgi import WSGIServer
    WSGIServer((ip, port), app).serve_forever()
 
 
-def run_simple_httpd_server(app, ip, port=8080):
+def run_simple_httpd_server(app, ip, port=8181):
    from wsgiref.simple_server import make_server
    make_server(ip, port, app).serve_forever()
 
@@ -34,7 +34,7 @@ def run_simple_httpd_server(app, ip, port=8080):
 #
 if __name__ == '__main__':
    ip   = os.environ['OPENSHIFT_INTERNAL_IP']
-   port = 8080
+   port = 8181
    zapp = imp.load_source('application', 'wsgi/application')
 
    #  Use gevent if we have it, otherwise run a simple httpd server.
